@@ -1,360 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prasith Basky Murugaperumal | Computational Mechanics & Software Engineer</title>
-    <!-- Google Fonts & FontAwesome for modern icons -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    <link rel="stylesheet" href="https://cloudflare.com">
-    
-    <style>
-        :root {
-            --bg-main: #0d1117;
-            --bg-card: #161b22;
-            --bg-nav: rgba(22, 27, 34, 0.8);
-            --accent: #58a6ff;
-            --accent-green: #3fb950;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
-            --border: #30363d;
-            --font-sans: 'Inter', sans-serif;
-            --font-mono: 'Fira Code', monospace;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prasith Basky Murugaperumal – Computational Mechanics</title>
+<meta name="description" content="M.Sc. student in Computational Mechanics at Uni Stuttgart. Core solver and CAE software developer: C++, Fortran, Python, HPC, OpenRadioss.">
+<style>
+:root{
+  --bg:#15171c; --bg2:#1b1e25; --line:#2c303a; --text:#c9cdd6; --muted:#8a91a0; --head:#eceef2; --link:#6cb0f5;
+  --kw:#569cd6; --str:#ce9178; --fn:#dcdcaa; --ty:#4ec9b0; --cm:#6a9955;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--bg);color:var(--text);font:17px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--link);outline-offset:3px}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:54px;gap:16px}
+nav .name{color:var(--head);font-weight:600;text-decoration:none}
+nav ul{display:flex;gap:20px;list-style:none;font-size:.93rem}
+nav ul a{color:var(--muted);text-decoration:none}
+nav ul a:hover{color:var(--head)}
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-        }
+header{padding:70px 0 20px}
+h1{font-size:clamp(2rem,5vw,2.9rem);line-height:1.15;color:var(--head);font-weight:700}
+.sub{margin:14px 0 0;font-size:1.15rem;color:var(--head);max-width:40ch}
+.intro{margin:14px 0 26px;max-width:58ch;color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:10px 18px;border:1px solid var(--link);border-radius:4px;color:var(--link);text-decoration:none;font-size:.95rem}
+.btn:hover{background:rgba(108,176,245,.12)}
+.btn.fill{background:var(--link);color:#0f1115;font-weight:600}
+.btn.fill:hover{background:#8cc2f8}
+.hero-code{margin-top:40px;background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:16px 18px;font-size:.84rem;line-height:1.7;overflow-x:auto}
+.kw{color:var(--kw)} .st{color:var(--str)} .fn{color:var(--fn)} .ty{color:var(--ty)} .cm{color:var(--cm)}
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: var(--bg-nav);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-        }
+section{padding:56px 0 0;margin-top:56px;border-top:1px solid var(--line)}
+h2{font-size:1.5rem;color:var(--head);margin-bottom:14px;font-weight:600}
+h3{font-size:1.08rem;color:var(--head);font-weight:600}
+p{max-width:68ch}
+.muted{color:var(--muted)}
+ul{padding-left:20px}
+li{margin-bottom:6px}
 
-        nav .logo {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
+.repo{border:1px solid var(--line);border-radius:4px;padding:20px;margin:18px 0;background:var(--bg2)}
+.repo h3 a{text-decoration:none}
+.repo h3 a:hover{text-decoration:underline}
+.repo p{margin:8px 0 0}
+.meta{margin-top:12px;font-size:.85rem;color:var(--muted)}
+.meta span+span::before{content:"/ ";margin-left:6px}
+figure{margin:22px 0;border:1px solid var(--line);border-radius:4px;padding:16px;background:var(--bg2);overflow-x:auto}
+figure svg{width:100%;min-width:620px;height:auto;display:block}
+figure text{font:12px ui-monospace,Consolas,monospace;fill:#c9cdd6}
+figure .s{fill:#8a91a0;font-size:11px}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:8px}
+details{border:1px solid var(--line);border-radius:4px;background:var(--bg2)}
+summary{cursor:pointer;padding:12px 16px;color:var(--head)}
+details[open] summary{border-bottom:1px solid var(--line)}
+.dd{padding:14px 16px 16px;font-size:.96rem}
+.dd p{margin-bottom:10px}
+.dd pre{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:12px;font-size:.8rem;line-height:1.65;overflow-x:auto}
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+.proj{padding:22px 0;border-bottom:1px solid var(--line)}
+.proj:last-child{border-bottom:0}
+.proj .where{font-size:.88rem;color:var(--muted);margin:2px 0 10px}
+.proj .tech{font-size:.86rem;color:var(--muted);margin-top:10px}
+.mock{float:right;width:210px;margin:0 0 10px 20px;border:1px solid var(--line);border-radius:4px;background:var(--bg2);overflow:hidden;font-size:.7rem}
+.mock .bar{padding:4px 9px;border-bottom:1px solid var(--line);color:var(--muted)}
+.mock svg{display:block;width:100%;height:80px}
+.mock figcaption{padding:4px 9px;margin:0;border-top:1px solid var(--line);font-size:.68rem}
 
-        nav ul a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 18px}
+.filters button{font:inherit;font-size:.88rem;background:none;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:5px 12px;cursor:pointer}
+.filters button:hover{color:var(--head)}
+.filters button[aria-pressed="true"]{color:#0f1115;background:var(--link);border-color:var(--link)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skills span{border:1px solid var(--line);border-radius:4px;padding:4px 11px;font-size:.92rem;background:var(--bg2)}
+.skills span[hidden]{display:none}
 
-        nav ul a:hover {
-            color: var(--accent);
-        }
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin-top:4px}
+dt{color:var(--muted)}
+.edu-item{margin-bottom:18px}
 
-        /* Container & Sections */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 6rem 0 4rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .section-title span {
-            color: var(--accent);
-            font-family: var(--font-mono);
-        }
-
-        /* Hero Section */
-        #hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-top: 2rem;
-        }
-
-        .hero-mono {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: #f0f6fc;
-        }
-
-        .hero-tagline {
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            max-width: 800px;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: #0d1117;
-        }
-
-        .btn-primary:hover {
-            background-color: #79c0ff;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            background-color: transparent;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--bg-card);
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
-        }
-
-        /* Open Source Featured Card */
-        .featured-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--accent);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-top: 2rem;
-            position: relative;
-        }
-
-        .badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-family: var(--font-mono);
-        }
-
-        /* Experience Timeline */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .timeline-item {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            transition: border-color 0.3s;
-        }
-
-        .timeline-item:hover {
-            border-color: var(--text-muted);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .role {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #f0f6fc;
-        }
-
-        .company {
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        .duration {
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .timeline-item ul {
-            padding-left: 1.2rem;
-            color: var(--text-main);
-        }
-
-        .timeline-item li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Skills Matrix Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .skill-card h3 {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag {
-            background-color: var(--bg-main);
-            border: 1px solid var(--border);
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-family: var(--font-mono);
-        }
-
-        /* Education & Contact Footer Info */
-        .edu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .contact-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .contact-link {
-            color: var(--text-main);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .contact-link:hover {
-            color: var(--accent);
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .hero-tagline { font-size: 1.2rem; }
-            nav ul { display: none; } /* Simplified mobile view */
-            .timeline-header { flex-direction: column; }
-        }
-    </style>
+footer{margin:70px 0 0;padding:22px 0;border-top:1px solid var(--line);font-size:.88rem;color:var(--muted)}
+@media(max-width:700px){.two{grid-template-columns:1fr;gap:10px}nav ul{display:none}.mock{float:none;margin:0 0 14px;width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
-    <nav>
-        <a href="#" class="logo">&lt;prasith.basky /&gt;</a>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#open-source">Open Source</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#education">Education</a></li>
-        </ul>
-    </nav>
+<nav>
+  <div class="wrap">
+    <a class="name" href="#top">Prasith Basky Murugaperumal</a>
+    <ul>
+      <li><a href="#opensource">Open source</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#thesis">Thesis</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <div class="container">
-        
-        <!-- Hero Section -->
-        <section id="hero">
-            <p class="hero-mono">Hi, my name is</p>
-            <h1>Prasith Basky Murugaperumal.</h1>
-            <p class="hero-tagline">M.Sc. Student in Computational Mechanics at Uni Stuttgart specializing in core computational solvers, numerical optimization, and engineering software automation.</p>
-            <div class="btn-container">
-                <a href="#open-source" class="btn btn-primary"><i class="fab fa-github"></i> Explore Solver Work</a>
-                <a href="mailto:mprasith@gmail.com" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact Me</a>
-                <a href="https://linkedin.com" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            </div>
-        </section>
+<div class="wrap">
 
-        <!-- About Summary & Availability Status -->
-        <section id="about">
+<header id="top">
+  <h1>Prasith Basky Murugaperumal</h1>
+  <p class="sub">M.Sc. Student in Computational Mechanics at Uni Stuttgart | Core Solver &amp; CAE Software Developer</p>
+  <p class="intro">I write C++, Fortran and Python to make numerical methods and simulation workflows faster, more modular and easier to run at scale.</p>
+  <div class="btns">
+    <a class="btn fill" href="https://github.com/prasithbasky/eigen_mat" target="_blank" rel="noopener">View my open-source work</a>
+    <a class="btn" href="Resume_English.pdf" download>Download resume (PDF)</a>
+  </div>
+<pre class="hero-code"><span class="cm">! eigen_mat: eigenvalue routines for the OpenRadioss implicit solver</span>
+<span class="kw">subroutine</span> <span class="fn">solve_modes</span>(K, M, nev, vals, vecs)
+  <span class="kw">call</span> <span class="fn">dsaupd</span>(ido, <span class="st">'G'</span>, n, <span class="st">'SM'</span>, nev, tol, resid, ncv, v, ldv, ...)
+  <span class="cm">! ARPACK reverse communication loop</span>
+<span class="kw">end subroutine</span></pre>
+</header>
+
+<main>
+
+<section id="opensource">
+  <h2>Open-source work</h2>
+  <p>I contribute to OpenRadioss, an open-source finite element solver, working on the implicit solver path.</p>
+
+  <div class="repo">
+    <h3><a href="https://github.com/prasithbasky/eigen_mat" target="_blank" rel="noopener">prasithbasky/eigen_mat</a></h3>
+    <p>Refactoring legacy numerical dependencies to decouple the solver path from the MUMPS library. This makes the architecture more modular and allows alternate high-performance sparse-matrix paths. I am also developing eigenvalue and eigenvector solver routines for highly non-linear finite element computations.</p>
+    <div class="meta"><span>Fortran</span><span>LAPACK</span><span>ARPACK</span><span>Sparse matrices</span></div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 760 250" role="img" aria-label="Before: the implicit solver is hard-coupled to MUMPS. After: the solver calls an interface that can route to MUMPS, an alternate sparse path, or LAPACK and ARPACK eigen routines.">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a91a0"/></marker></defs>
+      <text x="10" y="20" class="s">Before</text>
+      <rect x="10" y="32" width="150" height="46" rx="3" fill="none" stroke="#8a91a0"/><text x="85" y="60" text-anchor="middle">Implicit solver</text>
+      <line x1="160" y1="55" x2="270" y2="55" stroke="#8a91a0" marker-end="url(#ar)"/>
+      <text x="215" y="46" text-anchor="middle" class="s">hard-coupled</text>
+      <rect x="272" y="32" width="150" height="46" rx="3" fill="none" stroke="#8a91a0"/><text x="347" y="60" text-anchor="middle">MUMPS</text>
+      <line x1="10" y1="106" x2="750" y2="106" stroke="#2c303a" stroke-dasharray="4 4"/>
+      <text x="10" y="130" class="s">After</text>
+      <rect x="10" y="150" width="140" height="46" rx="3" fill="none" stroke="#6cb0f5"/><text x="80" y="178" text-anchor="middle">Implicit solver</text>
+      <line x1="150" y1="173" x2="228" y2="173" stroke="#8a91a0" marker-end="url(#ar)"/>
+      <rect x="230" y="144" width="170" height="58" rx="3" fill="none" stroke="#6cb0f5"/>
+      <text x="315" y="169" text-anchor="middle">Solver interface</text><text x="315" y="187" text-anchor="middle" class="s">modular layer</text>
+      <line x1="400" y1="160" x2="498" y2="132" stroke="#8a91a0" marker-end="url(#ar)"/>
+      <line x1="400" y1="173" x2="498" y2="173" stroke="#8a91a0" marker-end="url(#ar)"/>
+      <line x1="400" y1="186" x2="498" y2="214" stroke="#8a91a0" marker-end="url(#ar)"/>
+      <rect x="500" y="112" width="250" height="40" rx="3" fill="none" stroke="#8a91a0"/><text x="625" y="137" text-anchor="middle">MUMPS (still supported)</text>
+      <rect x="500" y="153" width="250" height="40" rx="3" fill="none" stroke="#8a91a0"/><text x="625" y="178" text-anchor="middle">Alternate sparse-matrix path</text>
+      <rect x="500" y="194" width="250" height="40" rx="3" fill="none" stroke="#8a91a0"/><text x="625" y="219" text-anchor="middle">LAPACK / ARPACK eigen routines</text>
+    </svg>
+    <figcaption>Decoupling the solver path from MUMPS (simplified).</figcaption>
+  </figure>
+
+  <details>
+    <summary>Technical details: LAPACK and ARPACK in Fortran</summary>
+    <div class="dd">
+      <p><strong>LAPACK</strong> provides dense linear algebra routines, used for smaller eigenproblems and the dense blocks inside iterative methods.</p>
+      <p><strong>ARPACK</strong> uses implicitly restarted Arnoldi/Lanczos iterations to find a few eigenvalues and eigenvectors of large sparse systems without a full decomposition.</p>
+      <p>Non-linear implicit FE analyses solve large sparse systems again and again. Separating the solver path from a single library makes it possible to test other sparse paths and keep the eigen routines reusable. Fortran matches the existing OpenRadioss code base.</p>
+<pre><span class="cm">! ARPACK reverse communication pattern (sketch)</span>
+<span class="kw">do</span>
+  <span class="kw">call</span> <span class="fn">dsaupd</span>(ido, bmat, n, which, nev, tol, resid, ncv, v, ldv, ...)
+  <span class="kw">if</span> (ido == -1 .or. ido == 1) <span class="kw">then</span>
+    <span class="kw">call</span> <span class="fn">apply_operator</span>(workd(ipntr(1)), workd(ipntr(2)))
+  <span class="kw">else</span>
+    <span class="kw">exit</span>
+  <span class="kw">end if</span>
+<span class="kw">end do</span></pre>
+    </div>
+  </details>
+</section>
+
+<section id="projects">
+  <h2>Projects and experience</h2>
+
+  <article class="proj">
+    <h3>High-performance computing: crash simulation on the Ehlers cluster</h3>
+    <p class="where">Student Research Assistant, Institute of Technische und Numerische Mechanik (ITM), Uni Stuttgart, Nov 2024 – Jul 2026</p>
+    <ul>
+      <li>Ran high-fidelity LS-DYNA (THUMS) and Siemens Madymo simulations on the university's Ehlers HPC cluster.</li>
+      <li>Managed parallel execution queues with SLURM batch scripts to evaluate structural crashworthiness and impact repeatability.</li>
+      <li>Wrote Python and Bash scripts for pre- and post-processing, reducing manual setup for large batch simulations.</li>
+      <li>Built data validation pipelines comparing simulation curves against experimental datasets.</li>
+    </ul>
+    <p class="tech">SLURM, Bash, Python, LS-DYNA, Madymo</p>
+  </article>
+
+  <article class="proj">
+    <figure class="mock" aria-hidden="true">
+      <div class="bar">calibration_tool.py</div>
+      <svg viewBox="0 0 210 80"><polyline points="8,68 45,52 85,32 125,24 165,20 202,18" fill="none" stroke="#ce9178" stroke-width="2"/><polyline points="8,70 45,56 85,36 125,26 165,22 202,20" fill="none" stroke="#4ec9b0" stroke-width="2" stroke-dasharray="4 3"/></svg>
+      <figcaption>Mock layout: test vs. simulation curve</figcaption>
+    </figure>
+    <h3>GUI and automation: material calibration pipeline</h3>
+    <p class="where">Working Student, Ansys (part of Synopsys), Aug 2025 – present</p>
+    <ul>
+      <li>Built a modular, object-oriented Python GUI (Tkinter) for raw data ingestion, curve preprocessing and report generation.</li>
+      <li>Automated parameter identification with LS-OPT, minimising residuals between simulation and material test curves.</li>
+      <li>Configured and ran LS-DYNA simulations to calibrate advanced constitutive material models.</li>
+    </ul>
+    <p class="tech">Python, Tkinter, LS-DYNA, LS-OPT</p>
+  </article>
+
+  <article class="proj">
+    <h3>Finite element analysis and CFD</h3>
+    <p class="where">Associate Engineer, Caterpillar India, Aug 2022 – Aug 2024, and B.E. projects at Anna University</p>
+    <ul>
+      <li>Thermal, structural and vibration analysis of engine components, with transient thermal analysis correlated to test data.</li>
+      <li>Supported fatigue life prediction through thermo-mechanical analysis.</li>
+      <li>Developed Python tools to automate CAE pre- and post-processing.</li>
+      <li>Final-year project: HVAC design and validation of a college auditorium in Ansys. Also a CFD analysis of vortex tube refrigeration.</li>
+    </ul>
+    <p class="tech">Ansys, CFD, thermal and structural FEA, Python</p>
+  </article>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="filters" role="group" aria-label="Filter skills">
+    <button aria-pressed="true" data-f="all">All</button>
+    <button aria-pressed="false" data-f="low">Low-level and solvers</button>
+    <button aria-pressed="false" data-f="auto">Automation and scripting</button>
+    <button aria-pressed="false" data-f="cae">CAE solvers</button>
+    <button aria-pressed="false" data-f="hpc">HPC and infrastructure</button>
+    <button aria-pressed="false" data-f="cad">CAD</button>
+  </div>
+  <div class="skills" id="skillGrid">
+    <span data-g="low">C++</span><span data-g="low">Fortran</span><span data-g="low">MATLAB</span><span data-g="low">LAPACK</span><span data-g="low">ARPACK</span>
+    <span data-g="auto">Python (Tkinter, OOP)</span><span data-g="auto">Bash</span><span data-g="auto">Git</span><span data-g="auto">CI/CD pipelines</span>
+    <span data-g="cae">LS-DYNA</span><span data-g="cae">LS-OPT</span><span data-g="cae">OpenRadioss</span><span data-g="cae">Siemens Madymo</span><span data-g="cae">Ansys</span>
+    <span data-g="hpc">SLURM</span><span data-g="hpc">Ehlers cluster environment</span>
+    <span data-g="cad">Siemens NX</span><span data-g="cad">CATIA</span><span data-g="cad">Creo</span>
+  </div>
+</section>
+
+<section id="thesis">
+  <h2>Looking for a thesis or internship</h2>
+  <p style="margin-bottom:22px">I am looking for a Master's thesis and an internship in engineering software development.</p>
+  <div class="two">
+    <div>
+      <h3>Research interests</h3>
+      <ul style="margin-top:8px">
+        <li>Parallel numerical methods and parallel algorithms</li>
+        <li>Sparse matrix path optimisation</li>
+        <li>Eigenvalue solvers for non-linear finite element problems</li>
+        <li>High-fidelity crash simulation and UI automation</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Details</h3>
+      <dl>
+        <dt>Looking for</dt><dd>Master's thesis, internship</dd>
+        <dt>Field</dt><dd>Core solvers, CAE software</dd>
+        <dt>Languages</dt><dd>English C1, German A2</dd>
+        <dt>Location</dt><dd>Stuttgart, Germany</dd>
+      </dl>
+      <div class="btns" style="margin-top:18px"><a class="btn fill" href="mailto:mprasith@gmail.com?subject=Thesis%20or%20internship">Email me</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About me</h2>
+  <p style="margin-bottom:24px">I am a Master's student in Computational Mechanics (COMMAS) at the University of Stuttgart. I started in mechanical engineering, worked as a CAE engineer at Caterpillar India, and have since moved toward the software underneath simulation: solvers, parallel workflows and automation.</p>
+  <div class="two">
+    <div class="edu-item">
+      <h3>M.Sc. Computational Mechanics (COMMAS)</h3>
+      <p class="muted">University of Stuttgart, Oct 2024 – present</p>
+      <p class="muted">Continuum mechanics, finite element methods, computational fluid mechanics, simulation software engineering</p>
+    </div>
+    <div class="edu-item">
+      <h3>B.E. Mechanical Engineering</h3>
+      <p class="muted">College of Engineering, Guindy, Anna University, Aug 2018 – Jul 2022</p>
+      <p class="muted">GPA 9.04/10 (1.58 German grading). Gold medalist, first rank holder.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p style="margin-bottom:18px">Get in touch if you supervise theses or work on solvers and CAE software.</p>
+  <p><a href="mailto:mprasith@gmail.com">mprasith@gmail.com</a><br>
+  <a href="https://www.linkedin.com/in/prasith-basky-a20338161/" target="_blank" rel="noopener">LinkedIn</a><br>
+  <a href="https://github.com/prasithbasky" target="_blank" rel="noopener">GitHub</a><br>
+  <a href="Resume_English.pdf" download>Resume (PDF)</a></p>
+</section>
+
+</main>
+
+<footer>© <span id="yr">2026</span> Prasith Basky Murugaperumal. Stuttgart, Germany.</footer>
+</div>
+
+<script>
+var btns=document.querySelectorAll('.filters button'),items=document.querySelectorAll('#skillGrid span');
+btns.forEach(function(b){b.addEventListener('click',function(){
+  btns.forEach(function(x){x.setAttribute('aria-pressed','false')});
+  b.setAttribute('aria-pressed','true');
+  items.forEach(function(i){i.hidden=(b.dataset.f!=='all'&&i.dataset.g!==b.dataset.f)});
+})});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
